@@ -24,11 +24,8 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.jdbcAuthentication().dataSource(dataSource)
                 /*nu moet je sqlstatement maken zodat de veel op veel relatie geimplementeerd kan worden*/
                 .usersByUsernameQuery("select naam as username, paswoord as password, actief as enabled from gebruikers where naam = ?")
-                .authoritiesByUsernameQuery("select gebruikers.naam as username, rollen.naam as authorities" +
-                        " from gebruikers inner join gebruikersrollen" +
-                        " on gebruikers.id = gebruikersrollen.gebruikerId" +
-                        " inner join rollen" +
-                        " on rollen.id = gebruikersrollen.rolId" +
+                .authoritiesByUsernameQuery("select gebruikers.naam as username, rollen.naam as authorities from gebruikers inner join gebruikersrollen" +
+                        " on gebruikers.id = gebruikersrollen.gebruikerId inner join rollen on rollen.id = gebruikersrollen.rolId" +
                         " where gebruikers.naam = ?");
     }
 
